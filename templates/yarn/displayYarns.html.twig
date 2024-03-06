@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Patrons
+{% endblock %}
+
+{% block body %}
+
+	<div class="bg-white">
+    <h1 class=" ml-4 mt-4 text-2xl font-bold">Laines</h1>
+		<div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+			<div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+				{% for yarn in yarns %}
+					<a href="{{ path('app_yarn_detail', {'id': yarn.id}) }}" class="group">
+						<h3 class="mt-4 text-sm text-gray-700">{{yarn.name}}</h3>
+						<p class="mt-1 text-lg font-medium text-gray-900">{{yarn.price}}
+							€</p>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

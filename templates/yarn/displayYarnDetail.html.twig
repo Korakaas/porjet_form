@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Patrons
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto mt-4">
+		<div class=" rounded overflow-hidden shadow-lg">
+			<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+				<div class="mb-8">
+                
+					<div class="text-gray-900 font-bold text-xl mb-2">{{yarn.name}}</div>
+					<p class="text-gray-700 text-base"> Couleur: {{yarn.color}}</p>
+					<p class="text-gray-700 text-base"> Poids: {{yarn.weight}}</p>
+					<p class="text-gray-700 text-base"> Matière: {{yarn.fiber}}</p>
+	
+				</div>
+				<p class="text-sm text-gray-600 flex items-center">
+
+						{{yarn.price}}
+						€
+					</p>
+			</div>
+		</div>
+	<a href="{{ path('app_yarns') }}">Retour à la liste des laines</a></div>
+{% endblock %}

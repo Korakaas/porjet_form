@@ -1,0 +1,44 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	Patrons
+{% endblock %}
+
+{% block body %}
+	<div class="container mx-auto mt-4">
+		<div class=" rounded overflow-hidden shadow-lg">
+			<img class="w-full" src={{pattern.image}}>
+			<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+				<div class="mb-8">
+					<div class="flex justify-between">
+						<p class="text-sm text-gray-600 flex items-center">
+
+							{{pattern.price}}
+							€
+						</p>
+						<p>#{{pattern.categories.name}}</p>
+					</div>
+
+					<div class="text-gray-900 font-bold text-xl mb-2">{{pattern.name}}</div>
+					<p class="text-gray-700 text-base">{{pattern.description}}</p>
+					<p class="font-semibold mb-4">Métrage :
+						{{pattern.yardage}}
+						m</p>
+					<div class="text-gray-900 font-bold text-xl mb-2">Instructions</div>
+					<p class="text-gray-700 text-base">{{pattern.instructions.description}}</p>
+				</div>
+
+				<div class="flex items-center">
+
+					<div class="px-6 pt-4 pb-2">
+
+						{% for yarn in pattern.yarns %}
+							<a href="{{ path('app_yarn_detail', {'id': yarn.id}) }}" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{yarn.name}}</a>
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<a href="{{ path('app_patterns') }}">Retour à la liste des patrons</a>
+	</div>
+{% endblock %}
