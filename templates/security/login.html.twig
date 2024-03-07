@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion
+{% endblock %}
+
+{% block body %}
+	<div class="contain py-16">
+		<div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+			<h2 class="text-2xl uppercase font-medium mb-1">Connexion</h2>
+			<form method="post">
+				{% if error %}
+					<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+				<p class="text-red-500"></p>
+				<div class="space-y-2">
+					<div>
+						<label for="email" class="text-gray-600 mb-2 block">Email</label>
+						<input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400" autocomplete="email" required autofocus></div>
+
+
+				</div>
+				<div class="space-y-2">
+					<div>
+						<label for="password" class="text-gray-600 mb-2 block"></label>Mot de passe<div class="relative">
+							<input type="password" name="_password" id="password" autocomplete="current-password" class="form-control block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400" required>
+						</div>
+					</div>
+				</div>
+
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+				<div class="mt-4">
+					<button type="submit" class="block w-full py-2 text-center text-white bg-teal-500 border border-teal-500 rounded hover:bg-transparent hover:text-teal-500 transition uppercase font-roboto font-medium">Se connecter</button>
+					<div class="flex gap-2 pt-5">
+						<p class="text-gray-600 text-sm">Pas encore de compte ?</p>
+						<a class="text-gray-600 text-sm underline" href="{{path('app_register')}}">S'enregistrer</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}

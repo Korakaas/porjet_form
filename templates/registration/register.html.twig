@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Enregistrer
+{% endblock %}
+
+{% block body %}
+	{% for flash_error in app.flashes('verify_email_error') %}
+		<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+	{% endfor %}
+
+
+	<div class="contain py-16">
+		<div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+			<h2 class="text-2xl uppercase font-medium mb-1">Créer un compte</h2>
+
+			{{ form_start(registrationForm) }}
+
+			<div class="space-y-2">
+				<div>
+					{{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'text-gray-600 mb-2 block'}}) }}
+					{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400'}, 'required': 'required', 'autofocus': 'autofocus'}) }}
+					{{ form_errors(registrationForm.email) }}
+				</div>
+				<div>
+					{{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'text-gray-600 mb-2 block'}}) }}
+					{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400'}, 'required': 'required'}) }}
+					{{ form_errors(registrationForm.plainPassword) }}
+				</div>
+			</div>
+
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+			<div class="mt-4">
+				<button type="submit" class="block w-full py-2 text-center text-white bg-teal-500 border border-teal-500 rounded hover:bg-transparent hover:text-teal-500 transition uppercase font-roboto font-medium">Enregistrer</button>
+				<div class="flex gap-2 pt-5">
+					<p class="text-gray-600 text-sm">Déjà un compte ?</p>
+					<a class="text-gray-600 text-sm underline" href="{{ path('app_login') }}">Se connecter</a>
+				</div>
+			</div>
+
+			{{ form_end(registrationForm) }}
+		</div>
+		{# <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+							<h2 class="text-2xl uppercase font-medium mb-1">Créer un compte</h2>
+							{{ form_start(registrationForm)}}
+							{{ form_errors(registrationForm) }}
+				
+							<p class="text-red-500"></p>
+							<div class="space-y-2">
+								<div>
+									{{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'text-gray-600 mb-2 block'}}) }}
+									{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400'}, 'full_name': 'email', 'id': 'email', 'required': 'required', 'autofocus': 'autofocus'}) }}
+								</div>
+							</div>
+							<div class="space-y-2">
+								<div>
+									{{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'text-gray-600 mb-2 block'}}) }}
+									<div class="relative">
+										{{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400'}, 'full_name': 'plainPassword', 'id': 'plainPassword', 'required': 'required'}) }}
+				
+									</div>
+								</div>
+							</div>
+				
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+							<div class="mt-4">
+								<button type="submit" class="block w-full py-2 text-center text-white bg-teal-500 border border-teal-500 rounded hover:bg-transparent hover:text-teal-500 transition uppercase font-roboto font-medium">Login</button>
+								<div class="flex gap-2 pt-5">
+									<p class="text-gray-600 text-sm">Déjà un compte ?
+									</p>
+									<a class="text-gray-600 text-sm underline" href="{{ path('app_login') }}">Se connecter</a>
+								</div>
+							</div>
+							{{ form_end(registrationForm) }}
+						</div> #}
+	</div>
+{% endblock %}

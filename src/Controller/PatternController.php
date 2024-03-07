@@ -94,5 +94,4 @@ class PatternController extends AbstractController
         return $this->redirectToRoute('app_patterns');
 
     }
-
 }
