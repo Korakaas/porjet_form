@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Pattern;
 use App\Form\PatternType;
 use App\Repository\PatternRepository;
+use App\Services\MessageService ;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,5 +94,11 @@ class PatternController extends AbstractController
         $this->patternRepository->remove(($pattern));
         return $this->redirectToRoute('app_patterns');
 
+    }
+
+    #[Route('/message-service', name:'app_patterns_message')]
+    public function messageServicePattern(MessageService $messageService): Response
+    {
+        return $this->render('services/messages.html.twig', ['majuscule' => $messageService->displayMessage()]);
     }
 }
