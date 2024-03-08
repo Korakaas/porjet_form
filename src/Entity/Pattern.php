@@ -7,10 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 #[ORM\Entity(repositoryClass: PatternRepository::class)]
 #[ORM\HasLifecycleCallbacks]
-class Pattern
+class Pattern implements JsonSerializable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -188,5 +189,20 @@ class Pattern
         $this->price = $price;
 
         return $this;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'instructions' => $this->instructions->getDescription(),
+            'category' => $this->categories->getName(),
+            'yardage' => $this->yardage,
+            'image' => $this->image,
+            'createdAt' => $this->createdAt,
+            'price' => $this->price,
+            'yarns' => $this->yarns->getKeys('patterns')
+    ];
     }
 }

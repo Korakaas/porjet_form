@@ -26,20 +26,50 @@ class PatternRepository extends ServiceEntityRepository
         $this->getEntityManager()->remove($pattern);
         $this->getEntityManager()->flush();
     }
-    //    /**
-    //     * @return Pattern[] Returns an array of Pattern objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Retourne les patrons en fonction de leur catégorie
+     * @return Pattern[] Returns an array of Pattern objects
+     */
+    public function findByCategory(int $categoryId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.categories = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Retourne les patrons en fonction de la laine
+     *
+     * @return Pattern[] Returns an array of Pattern objects
+     */
+    public function findByYarn(int $yarnId): array
+    {
+        return $this->createQueryBuilder('p')
+        ->innerJoin('p.yarns', 'y')
+            ->andWhere('y.id = :yarnId')
+            ->setParameter('yarnId', $yarnId)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Retourne les patrons en fonction d'un mot clé
+     *
+     * @return Pattern[] Returns an array of Pattern objects
+     */
+    public function findByKeyword(string $keyword): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.name LIKE :keyword OR p.description LIKE :keyword')
+            ->setParameter('keyword', '%' . $keyword .'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     //    public function findOneBySomeField($value): ?Pattern
     //    {

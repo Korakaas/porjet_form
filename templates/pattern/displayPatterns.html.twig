@@ -4,44 +4,73 @@
 {% endblock %}
 
 {% block body %}
-	<section class="flex flex-col justify-center max-w-6xl min-h-screen px-4 py-10 mx-auto sm:px-6">
-		<div class="flex flex-wrap items-center justify-between mb-8">
-			<h2 class="mr-10 text-4xl font-bold leading-none md:text-5xl">
-				Les patrons
-			</h2>
-		</div>
-
-		<div class="flex flex-wrap -mx-4">
-
-			<div class="w-full max-w-full mb-8 sm:w-1/2 px-4 lg:w-1/3 flex flex-col text-center justify-center">
-
-				<a href="{{path('app_pattern_new')}}" class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Ajouter un patron</a>
-
+	<h2 class="text-center text-4xl font-bold leading-none md:text-5xl mb-10">
+		Les patrons
+	</h2>
+	<div class="flex">
+	<aside id="default-sidebar" aria-label="Sidebar">
+			<div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+				<h3 class="text-xl font-bold leading-none">Filtres</h3>
+				<form method="post" action="pattern-category" class="m-4 p-2">
+					<label for="category_id" class="text-gray-600 mb-2 block">Catégorie</label>
+					<select name="category_id" id="category_id">
+						{% for categorie in categories %}
+							<option value="{{categorie.id}}">{{categorie.name}}</option>
+						{% endfor %}
+					</select>
+					<button type="submit" class="mt-2 block w-full py-2 text-center text-white bg-teal-500 border border-teal-500 rounded hover:bg-transparent hover:text-teal-500 transition uppercase font-roboto font-medium">Filtrer</button>
+				</form>
+				<form method="post" action="pattern-yarn" class="m-4 p-2">
+					<label for="yarn_id" class="text-gray-600 mb-2 block">Laine</label>
+					<select name="yarn_id" id="yarn_id">
+						{% for yarn in yarns %}
+							<option value="{{yarn.id}}">{{yarn.name}} {{yarn.color}}</option>
+						{% endfor %}
+					</select>
+					<button type="submit" class="mt-2 block w-full py-2 text-center text-white bg-teal-500 border border-teal-500 rounded hover:bg-transparent hover:text-teal-500 transition uppercase font-roboto font-medium">Filtrer</button>
+				</form>
+				<form method="post" action="pattern-keyword" class="m-4 p-2">
+					<input type="text" name="keyword" id="keyword">
+					<button type="submit" class="mt-2 block w-full py-2 text-center text-white bg-teal-500 border border-teal-500 rounded hover:bg-transparent hover:text-teal-500 transition uppercase font-roboto font-medium">Chercher</button>
+				</form>
 			</div>
-			{% for pattern in patterns %}
-				<div class="w-full max-w-full mb-8 sm:w-1/2 px-4 lg:w-1/3 flex flex-col">
-					<img src={{pattern.image}} alt="{{pattern.name}}" class="object-cover object-center w-full h-48"/>
-					<div class="flex flex-grow">
-						<div class="triangle"></div>
-						<div class="flex flex-col justify-between px-4 py-6 bg-white border border-gray-400 text">
-							<div>
-								<a href="{{path('app_category_index')}}" class="inline-block mb-4 text-xs font-bold capitalize border-b-2 border-blue-600 hover:text-blue-600">{{pattern.categories.name}}</a>
-								<a href="{{path('app_pattern_detail', {'id':pattern.id})}}" class="block mb-4 text-2xl font-black leading-tight hover:underline hover:text-blue-600">
-									{{pattern.name}}
-								</a>
-								<p class="mb-4">
-									{{pattern.description}}
-								</p>
-							</div>
-							<div class="flex justify-between">
-								<a href="{{path('app_pattern_edit', {'id':pattern.id})}}" class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Modifier</a>
-								<a href="{{path('app_pattern_delete', {'id':pattern.id})}}" class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Supprimer</a>
+		</aside>
+		<section class="flex flex-col justify-center max-w-6xl min-h-screen px-4 py-10 mx-auto sm:px-6">
+
+
+			<div class="flex flex-wrap -mx-4">
+
+				<div class="w-full max-w-full mb-8 sm:w-1/2 px-4 lg:w-1/3 flex flex-col text-center justify-center">
+
+					<a href="{{path('app_pattern_new')}}" class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Ajouter un patron</a>
+
+				</div>
+				{% for pattern in patterns %}
+					<div class="w-full max-w-full mb-8 sm:w-1/2 px-4 lg:w-1/3 flex flex-col">
+						<img src={{pattern.image}} alt="{{pattern.name}}" class="object-cover object-center w-full h-48"/>
+						<div class="flex flex-grow">
+							<div class="triangle"></div>
+							<div class="flex flex-col justify-between px-4 py-6 bg-white border border-gray-400 text">
+								<div>
+									<a href="{{path('app_category_index')}}" class="inline-block mb-4 text-xs font-bold capitalize border-b-2 border-blue-600 hover:text-blue-600">{{pattern.categories.name}}</a>
+									<a href="{{path('app_pattern_detail', {'id':pattern.id})}}" class="block mb-4 text-2xl font-black leading-tight hover:underline hover:text-blue-600">
+										{{pattern.name}}
+									</a>
+									<p class="mb-4">
+										{{pattern.description}}
+									</p>
+								</div>
+								<div class="flex justify-between">
+									<a href="{{path('app_pattern_edit', {'id':pattern.id})}}" class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Modifier</a>
+									<a href="{{path('app_pattern_delete', {'id':pattern.id})}}" class="inline-block pb-1 mt-2 text-base font-black text-blue-600 uppercase border-b border-transparent hover:border-blue-600">Supprimer</a>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
-		</div>
+				{% endfor %}
+			</div>
 
-	</section>
+		</section>
+	</div>
+
 {% endblock %}

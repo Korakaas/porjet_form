@@ -6,7 +6,7 @@
 {% block body %}
 	<div class="container mx-auto mt-4">
 		<div class=" rounded overflow-hidden shadow-lg">
-			<img class="w-full" src={{pattern.image}}>
+			<img class="mx-auto" src={{pattern.image}}>
 			<div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
 				<div class="mb-8">
 					<div class="flex justify-between">
@@ -32,7 +32,8 @@
 					<div class="px-6 pt-4 pb-2">
 
 						{% for yarn in pattern.yarns %}
-							<a href="{{ path('app_yarn_detail', {'id': yarn.id}) }}" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{yarn.name}}</a>
+							<a href="{{ path('app_yarn_detail', {'id': yarn.id}) }}" class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">{{yarn.name}}
+								{{yarn.color}}</a>
 						{% endfor %}
 
 					</div>
