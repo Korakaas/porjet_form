@@ -19,7 +19,7 @@
 	</head>
 
 
-	<body data-turbo=false>
+	<body data-turbo="false">
 		{% if app.user %}
 			{% block navbar %}
 				{% include "include/navbar.html.twig" %}
@@ -28,6 +28,13 @@
 
 
 		{% include "include/alert.html.twig" %}
+		{% if app.user and app.user.isVerified == false %}
+			<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+				<p class="font-bold">Attention !</p>
+				<p>Votre compte n'a pas été activé !</p>
+				<p>Merci de valider votre compte via le lien envoyé sur votre boite mail lors de l'inscription.</p>
+			</div>
+		{% endif %}
 		{% block body %}{% endblock %}
 	</body>
 </html>
